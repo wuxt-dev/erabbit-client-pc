@@ -1,7 +1,6 @@
 import axios from 'axios'
 import store from '@/store'
 import router from '@/router'
-import { def } from '@vue/shared'
 
 export const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net/'
 
