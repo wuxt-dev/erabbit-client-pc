@@ -1,12 +1,21 @@
 <template>
-  <nav>nav</nav>
+  <AppTopnav />
+  <AppHeader />
   <header>header</header>
-  <div class="main">
-    <RouterView>home</RouterView>
-  </div>
-  <footer>footer</footer>
+  <main class="app-body">
+    <RouterView />
+  </main>
+  <AppFooter />
 </template>
 
-<script setup></script>
+<script setup>
+import AppTopnav from '@/components/app-topnav.vue'
+import AppHeader from '@/components/app-header.vue'
+import AppFooter from '@/components/app-footer'
+</script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.app-body {
+  min-height: 600px;
+}
+</style>

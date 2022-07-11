@@ -1,7 +1,12 @@
 <template>
-  <div class="container"></div>
+  <div class="container">Homwpage</div>
 </template>
 
 <script setup></script>
 
-<style scoped></style>
+<style scoped lang="less">
+.container {
+  .hoverShadow();
+  color: @xtxColor;
+}
+</style>
