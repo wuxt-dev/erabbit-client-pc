@@ -1,8 +1,17 @@
 <template>
-  <div class="container">Homwpage</div>
+  <div class="page-home">
+    <div class="home-entry">
+      <div class="container">
+        <!-- 左侧分类 -->
+        <HomeCategory />
+      </div>
+    </div>
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import HomeCategory from './components/home-category'
+</script>
 
 <style scoped lang="less">
 .container {
