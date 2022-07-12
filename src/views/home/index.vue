@@ -15,6 +15,8 @@
   <HomeHot />
   <!-- 热门品牌 -->
   <HomeBrand />
+  <!-- 商品区域 -->
+  <HomeProduct />
 </template>
 
 <script setup>
@@ -23,6 +25,7 @@ import HomeBanner from './components/home-banner.vue'
 import HomeNew from './components/home-new'
 import HomeHot from './components/home-hot'
 import HomeBrand from './components/home-brand.vue'
+import HomeProduct from './components/home-product'
 </script>
 
 <style scoped lang="less">
