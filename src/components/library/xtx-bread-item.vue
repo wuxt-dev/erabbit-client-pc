@@ -4,11 +4,13 @@
     <span v-else><slot /></span>
   </div>
 </template>
-<script setup>
-import { defineProps } from 'vue'
-defineProps({
-  to: {
-    type: [String, Object]
+<script>
+export default {
+  name: 'XtxBreadItem',
+  props: {
+    to: {
+      type: [String, Object]
+    }
   }
-})
+}
 </script>

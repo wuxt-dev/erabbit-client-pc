@@ -5,14 +5,16 @@
   </RouterLink>
 </template>
 
-<script setup>
-import { defineProps } from 'vue'
-defineProps({
-  path: {
-    type: String,
-    default: '/'
+<script>
+export default {
+  name: 'XtxMore',
+  props: {
+    path: {
+      type: String,
+      default: '/'
+    }
   }
-})
+}
 </script>
 
 <style scoped lang="less">

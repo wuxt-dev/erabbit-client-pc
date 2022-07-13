@@ -9,27 +9,30 @@
     <!-- 2 闪效果 xtx-skeleton 伪元素 --->
   </div>
 </template>
-<script setup>
-import { defineProps } from 'vue'
+
+<script>
 // 使用的时候需要动态设置 高度，宽度，背景颜色，是否闪下
-defineProps({
-  bg: {
-    type: String,
-    default: '#efefef'
-  },
-  width: {
-    type: String,
-    default: '100px'
-  },
-  height: {
-    type: String,
-    default: '100px'
-  },
-  animated: {
-    type: Boolean,
-    default: false
+export default {
+  name: 'XtxSkeleton',
+  props: {
+    bg: {
+      type: String,
+      default: '#efefef'
+    },
+    width: {
+      type: String,
+      default: '100px'
+    },
+    height: {
+      type: String,
+      default: '100px'
+    },
+    animated: {
+      type: Boolean,
+      default: false
+    }
   }
-})
+}
 </script>
 <style scoped lang="less">
 .xtx-skeleton {

@@ -28,76 +28,80 @@
   </div>
 </template>
 
-<script setup>
-import { ref, watch, defineProps, onUnmounted } from 'vue'
-
-const props = defineProps({
-  sliders: {
-    type: Array,
-    default: () => []
-  },
-  duration: {
-    type: Number,
-    default: 3000
-  },
-  autoPlay: {
-    type: Boolean,
-    default: false
-  }
-})
-
-// 默认显示的图片的索引
-const index = ref(0)
-// 自动播放
-let timer = null
-const autoPlayFn = () => {
-  clearInterval(timer)
-  timer = setInterval(() => {
-    index.value++
-    if (index.value >= props.sliders.length) {
-      index.value = 0
-    }
-  }, props.duration)
-}
-watch(
-  () => props.sliders,
-  (newVal) => {
-    // 有数据&开启自动播放，才调用自动播放函数
-    if (newVal.length && props.autoPlay) {
-      index.value = 0
-      autoPlayFn()
+<script>
+import { ref, watch, onUnmounted } from 'vue'
+export default {
+  name: 'XtxCarousel',
+  props: {
+    sliders: {
+      type: Array,
+      default: () => []
+    },
+    duration: {
+      type: Number,
+      default: 3000
+    },
+    autoPlay: {
+      type: Boolean,
+      default: false
     }
   },
-  { immediate: true }
-)
-// 鼠标进入停止，移出开启自动，前提条件：autoPlay为true
-const stop = () => {
-  if (timer) clearInterval(timer)
-}
-const start = () => {
-  if (props.sliders.length && props.autoPlay) {
-    autoPlayFn()
-  }
-}
+  setup(props) {
+    // 默认显示的图片的索引
+    const index = ref(0)
+    // 自动播放
+    let timer = null
+    const autoPlayFn = () => {
+      clearInterval(timer)
+      timer = setInterval(() => {
+        index.value++
+        if (index.value >= props.sliders.length) {
+          index.value = 0
+        }
+      }, props.duration)
+    }
+    watch(
+      () => props.sliders,
+      (newVal) => {
+        // 有数据&开启自动播放，才调用自动播放函数
+        if (newVal.length && props.autoPlay) {
+          index.value = 0
+          autoPlayFn()
+        }
+      },
+      { immediate: true }
+    )
+    // 鼠标进入停止，移出开启自动，前提条件：autoPlay为true
+    const stop = () => {
+      if (timer) clearInterval(timer)
+    }
+    const start = () => {
+      if (props.sliders.length && props.autoPlay) {
+        autoPlayFn()
+      }
+    }
 
-// 上一张下一张
-const toggle = (step) => {
-  const newIndex = index.value + step
-  if (newIndex >= props.sliders.length) {
-    index.value = 0
-    return
-  }
-  if (newIndex < 0) {
-    index.value = props.sliders.length - 1
-    return
-  }
-  index.value = newIndex
-}
+    // 上一张下一张
+    const toggle = (step) => {
+      const newIndex = index.value + step
+      if (newIndex >= props.sliders.length) {
+        index.value = 0
+        return
+      }
+      if (newIndex < 0) {
+        index.value = props.sliders.length - 1
+        return
+      }
+      index.value = newIndex
+    }
 
-// 组件消耗，清理定时器
-onUnmounted(() => {
-  clearInterval(timer)
-})
+    // 组件消耗，清理定时器
+    onUnmounted(() => {
+      clearInterval(timer)
+    })
+    return { index, stop, start, toggle }
+  }
+}
 </script>
 
 <style scoped lang="less">
