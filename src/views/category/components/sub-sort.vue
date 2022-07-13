@@ -45,15 +45,19 @@
       </a>
     </div>
     <div class="check">
-      <XtxCheckbox v-model="sortParams.inventory">仅显示有货商品</XtxCheckbox>
-      <XtxCheckbox v-model="sortParams.onlyDiscount"
+      <XtxCheckbox @change="changeCheck" v-model="sortParams.inventory"
+        >仅显示有货商品</XtxCheckbox
+      >
+      <XtxCheckbox @change="changeCheck" v-model="sortParams.onlyDiscount"
         >仅显示特惠商品</XtxCheckbox
       >
     </div>
   </div>
 </template>
 <script setup>
-import { reactive } from 'vue'
+import { reactive, defineEmits } from 'vue'
+
+const emits = defineEmits(['sort-change'])
 // 实现交互
 const sortParams = reactive({
   inventory: false,
@@ -78,6 +82,11 @@ const changeSort = (sortField) => {
     sortParams.sortField = sortField
     sortParams.sortMethod = null
   }
+  emits('sort-change', sortParams)
+}
+
+const changeCheck = () => {
+  emits('sort-change', sortParams)
 }
 </script>
 <style scoped lang="less">

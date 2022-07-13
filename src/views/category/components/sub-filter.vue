@@ -5,7 +5,7 @@
       <div class="head">品牌：</div>
       <div class="body">
         <a
-          @click="filterData.brands.selectedBrand = item.id"
+          @click="changeBrand(item.id)"
           :class="{ active: item.id === filterData.brands.selectedBrand }"
           href="javascript:;"
           v-for="item in filterData.brands"
@@ -18,7 +18,7 @@
       <div class="head">{{ item.name }}</div>
       <div class="body">
         <a
-          @click="item.selectedProp = prop.id"
+          @click="changeProp(item, prop.id)"
           :class="{ active: prop.id === item.selectedProp }"
           href="javascript:;"
           v-for="prop in item.properties"
@@ -39,7 +39,7 @@
 <script setup>
 import { findSubCategoryFilter } from '@/api/category'
 import { useRoute } from 'vue-router'
-import { ref, watch } from 'vue'
+import { ref, watch, defineEmits } from 'vue'
 // 1. 获取数据
 // 2. 数据中需要全部选中，需要预览将来点击激活功能。默认选中全部
 // 3. 完成渲染
@@ -66,6 +66,33 @@ watch(
   },
   { immediate: true }
 )
+
+// 获取筛选参数
+const getFilterParams = () => {
+  const filterParams = {}
+  const attrs = []
+  filterParams.brandId = filterData.value.brands.selectedBrand
+  filterData.value.saleProperties.forEach((p) => {
+    const attr = p.properties.find((attr) => attr.id === p.selectedProp)
+    if (attr && attr.id !== undefined) {
+      attrs.push({ groupName: p.name, propertyName: attr.name })
+    }
+  })
+  if (attrs.length) filterParams.attrs = attrs
+  return filterParams
+}
+
+const emits = defineEmits(['filter-change'])
+const changeBrand = (brandId) => {
+  if (filterData.value.brands.selectedBrand === brandId) return
+  filterData.value.brands.selectedBrand = brandId
+  emits('filter-change', getFilterParams())
+}
+const changeProp = (item, propId) => {
+  if (item.selectedProp === propId) return
+  item.selectedProp = propId
+  emits('filter-change', getFilterParams())
+}
 </script>
 <style scoped lang="less">
 // 筛选区
