@@ -5,6 +5,8 @@
       <div class="head">品牌：</div>
       <div class="body">
         <a
+          @click="filterData.brands.selectedBrand = item.id"
+          :class="{ active: item.id === filterData.brands.selectedBrand }"
           href="javascript:;"
           v-for="item in filterData.brands"
           :key="item.id"
@@ -15,9 +17,14 @@
     <div class="item" v-for="item in filterData.saleProperties" :key="item.id">
       <div class="head">{{ item.name }}</div>
       <div class="body">
-        <a href="javascript:;" v-for="prop in item.properties" :key="prop.id">{{
-          prop.name
-        }}</a>
+        <a
+          @click="item.selectedProp = prop.id"
+          :class="{ active: prop.id === item.selectedProp }"
+          href="javascript:;"
+          v-for="prop in item.properties"
+          :key="prop.id"
+          >{{ prop.name }}</a
+        >
       </div>
     </div>
   </div>
@@ -46,8 +53,10 @@ watch(
     if (newVal && route.path === '/category/sub/' + newVal) {
       filterLoading.value = true
       findSubCategoryFilter(route.params.id).then((data) => {
+        data.result.brands.selectedBrand = null
         data.result.brands.unshift({ id: null, name: '全部' })
         data.result.saleProperties.forEach((item) => {
+          item.selectedProp = null
           item.properties.unshift({ id: null, name: '全部' })
         })
         filterData.value = data.result
