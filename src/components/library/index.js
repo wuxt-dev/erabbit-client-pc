@@ -2,6 +2,8 @@ import XtxSkeleton from './xtx-skeleton.vue'
 import XtxCarousel from './xtx-carousel.vue'
 import XtxMore from './xtx-more.vue'
 import defaultImg from '@/assets/images/200.png'
+import XtxBread from './xtx-bread.vue'
+import XtxBreadItem from './xtx-bread-item.vue'
 
 export default {
   install(app) {
@@ -10,6 +12,8 @@ export default {
     app.component('XtxSkeleton', XtxSkeleton)
     app.component('XtxCarousel', XtxCarousel)
     app.component('XtxMore', XtxMore)
+    app.component('XtxBread', XtxBread)
+    app.component('XtxBreadItem', XtxBreadItem)
     // 定义指令
     defineDerective(app)
   }
