@@ -25,6 +25,9 @@
           <GoodsSku :goods="goods" skuId="300334891" @change="changeSku" />
           <!-- 数量组件 -->
           <XtxNumbox v-model="num" :max="goods.inventory" />
+          <XtxButton type="primary" style="margin-top: 20px"
+            >加入购物车</XtxButton
+          >
         </div>
       </div>
       <!-- 商品推荐 -->
