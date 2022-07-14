@@ -19,7 +19,10 @@
           <GoodsSales />
         </div>
         <div class="spec">
+          <!-- 名字区组件 -->
           <GoodsName :goods="goods" />
+          <!-- 规格组件 -->
+          <GoodsSku :goods="goods" skuId="300334891" @change="changeSku" />
         </div>
       </div>
       <!-- 商品推荐 -->
@@ -44,6 +47,7 @@ import GoodsRelevant from './components/goods-relevant'
 import GoodsImage from './components/goods-image'
 import GoodsSales from './components/goods-sales'
 import GoodsName from './components/goods-name'
+import GoodsSku from './components/goods-sku'
 import { nextTick, ref, watch } from 'vue'
 import { findGoods } from '@/api/product'
 import { useRoute } from 'vue-router'
@@ -67,6 +71,14 @@ watch(
   },
   { immediate: true }
 )
+
+const changeSku = (sku) => {
+  if (sku.skuId) {
+    goods.value.price = sku.price
+    goods.value.oldPrice = sku.oldPrice
+    goods.value.inventory = sku.inventory
+  }
+}
 </script>
 
 <style scoped lang="less">
