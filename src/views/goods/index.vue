@@ -13,7 +13,12 @@
         <XtxBreadItem>{{ goods.name }}</XtxBreadItem>
       </XtxBread>
       <!-- 商品信息 -->
-      <div class="goods-info"></div>
+      <div class="goods-info">
+        <div class="media">
+          <GoodsImage :images="goods.mainPictures" />
+        </div>
+        <div class="spec"></div>
+      </div>
       <!-- 商品推荐 -->
       <GoodsRelevant />
       <!-- 商品详情 -->
@@ -33,6 +38,7 @@
 
 <script setup>
 import GoodsRelevant from './components/goods-relevant'
+import GoodsImage from './components/goods-image'
 import { nextTick, ref, watch } from 'vue'
 import { findGoods } from '@/api/product'
 import { useRoute } from 'vue-router'
@@ -62,6 +68,16 @@ watch(
 .goods-info {
   min-height: 600px;
   background: #fff;
+  display: flex;
+  .media {
+    width: 580px;
+    height: 600px;
+    padding: 30px 50px;
+  }
+  .spec {
+    flex: 1;
+    padding: 30px 30px 30px 0;
+  }
 }
 .goods-footer {
   display: flex;
