@@ -23,6 +23,8 @@
           <GoodsName :goods="goods" />
           <!-- 规格组件 -->
           <GoodsSku :goods="goods" skuId="300334891" @change="changeSku" />
+          <!-- 数量组件 -->
+          <XtxNumbox v-model="num" :max="goods.inventory" />
         </div>
       </div>
       <!-- 商品推荐 -->
@@ -79,6 +81,8 @@ const changeSku = (sku) => {
     goods.value.inventory = sku.inventory
   }
 }
+
+const num = ref(1)
 </script>
 
 <style scoped lang="less">
