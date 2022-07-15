@@ -26,7 +26,7 @@
         </div>
       </div>
     </div>
-    <div class="sort">
+    <div class="sort" v-if="commentInfo">
       <span>排序：</span>
       <a
         @click="changeSort(null)"
@@ -84,6 +84,13 @@
         </div>
       </div>
     </div>
+    <XtxPagination
+      v-if="total > 0"
+      @current-change="changePager"
+      :total="total"
+      :current-page="reqParams.page"
+      :page-size="reqParams.pageSize"
+    />
   </div>
 </template>
 <script setup>
@@ -140,11 +147,13 @@ const changeSort = (type) => {
 }
 // 初始化或者筛选条件改变后，获取列表数据。
 const commentList = ref([])
+const total = ref(0)
 watch(
   reqParams,
   async () => {
     const data = await findCommentListByGoods(goods.value.id, reqParams)
     commentList.value = data.result.items
+    total.value = data.result.counts
   },
   { immediate: true }
 )
@@ -154,6 +163,10 @@ const formatSpecs = (specs) => {
 }
 const formatNickname = (nickname) => {
   return nickname.substr(0, 1) + '****' + nickname.substr(-1)
+}
+// 改变分页函数
+const changePager = (np) => {
+  reqParams.page = np
 }
 </script>
 <style scoped lang="less">
