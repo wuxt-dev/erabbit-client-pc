@@ -14,12 +14,20 @@ module.exports = defineConfig({
   },
   // 将低于10kb的图片转为base64格式
   chainWebpack: (config) => {
-    config.module
-      .rule('images')
-      .set('parser', {
-        dataUrlCondition: {
-          maxSize: 10 * 1024 // 10KiB
-        }
-      })
+    config.module.rule('images').set('parser', {
+      dataUrlCondition: {
+        maxSize: 10 * 1024 // 10KiB
+      }
+    })
+  },
+  // 开启ip域名访问
+  devServer: {
+    historyApiFallback: true,
+    allowedHosts: 'all'
+  },
+  configureWebpack: {
+    externals: {
+      qc: 'QC'
+    }
   }
 })
