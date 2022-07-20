@@ -8,10 +8,10 @@
               ><i class="iconfont icon-user"></i>{{ profile.account }}</a
             >
           </li>
-          <li><a href="javascript:;">退出登录</a></li>
+          <li><a @click="logout" href="javascript:;">退出登录</a></li>
         </template>
         <template v-else>
-          <li><a href="javascript:;">请先登录</a></li>
+          <li><RouterLink to="/login">请先登录</RouterLink></li>
           <li><a href="javascript:;">免费注册</a></li>
         </template>
         <li><a href="javascript:;">我的订单</a></li>
@@ -28,9 +28,17 @@
 <script setup>
 import { useStore } from 'vuex'
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 const store = useStore()
 const profile = computed(() => store.state.user.profile)
+
+const router = useRouter()
+const logout = () => {
+  store.commit('user/setUser', {})
+  store.commit('cart/setCartList', [])
+  router.push('/login')
+}
 </script>
 <style scoped lang="less">
 .app-topnav {

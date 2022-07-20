@@ -189,10 +189,12 @@ const login = async () => {
       token,
       mobile
     })
-    // 2. 提示
-    Message({ type: 'success', text: '登录成功' })
-    // 3. 跳转
-    router.push(route.query.redirectUrl || '/')
+    store.dispatch('cart/mergeLocalCart').then(() => {
+      // 2. 提示
+      Message({ type: 'success', text: '登录成功' })
+      // 3. 跳转
+      router.push(route.query.redirectUrl || '/')
+    })
   }
 }
 const time = ref(0)
