@@ -8,6 +8,7 @@ const SubCategory = () => import('@/views/category/sub')
 const Goods = () => import('@/views/goods/index')
 const Cart = () => import('@/views/cart/index')
 const PayCheckout = () => import('@/views/member/pay/checkout')
+const PayIndex = () => import('@/views/member/pay/index')
 
 const Login = () => import('@/views/login/index')
 const LoginCallback = () => import('@/views/login/callback')
@@ -31,7 +32,8 @@ const routes = [
       },
       { path: '/product/:id', component: Goods },
       { path: '/cart', component: Cart },
-      { path: '/member/checkout', component: PayCheckout }
+      { path: '/member/checkout', component: PayCheckout },
+      { path: '/member/pay', component: PayIndex }
     ]
   },
   { path: '/login', component: Login },
